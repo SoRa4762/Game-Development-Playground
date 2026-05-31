@@ -2,15 +2,38 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] float speedValue = 5f;
+
+    Rigidbody rb;
+
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
+        PrintInstruction();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(0f, 0f, 0.01f);
+        moveDodgy();
+    }
+
+    void PrintInstruction()
+    {
+        Debug.Log("Welcome to the game playa!");
+    }
+
+    void moveDodgy()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Jump");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(x, y, z) * speedValue;
+
+        rb.linearVelocity = new Vector3(
+            movement.x,
+            movement.y,
+            movement.z
+        );
     }
 }
